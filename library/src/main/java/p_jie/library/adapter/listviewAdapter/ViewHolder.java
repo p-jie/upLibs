@@ -85,4 +85,21 @@ public class ViewHolder {
 		tv.setText(String.valueOf(text).trim());
 		return this;
 	}
+
+	public ViewHolder setVisible(int viewId, boolean visible) {
+		View view = getView(viewId);
+		view.setVisibility(visible ? View.VISIBLE : View.GONE);
+		return this;
+	}
+
+
+	public ViewHolder setVisible(int viewId, int visible) {
+		View view = getView(viewId);
+		view.setVisibility(visible);
+		return this;
+	}
+
+	public View getConvertView() {
+		return mViews.valueAt(0);
+	}
 }

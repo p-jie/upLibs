@@ -1,11 +1,37 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="p_jie.library">
+    <!-- 网络监听广播权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!-- 图片选择权限 -->
+    <!-- 在SDCard中创建与删除文件权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 从SDCard读取数据权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application android:allowBackup="true"
                  android:label="@string/app_name"
                  android:supportsRtl="true"
     >
 
+        <activity android:name="p_jie.library.view.imageselect.ui.ImageBaseActivity"/>
+        <activity
+            android:name="p_jie.library.view.imageselect.ui.ImageGridActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/ImagePickerTheme"/>
+        <activity
+            android:name="p_jie.library.view.imageselect.ui.ImageCropActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="false"
+            android:theme="@style/ImagePickerTheme"/>
+        <activity
+            android:name="p_jie.library.view.imageselect.ui.ImagePreviewActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/ImagePickerThemeFullScreen"/>
     </application>
 
 </manifest>

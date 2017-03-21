@@ -23,11 +23,15 @@ import p_jie.library.view.toolbar.ToolBarHelper;
 public class BaseActivity extends AppCompatActivity {
     private ToolBarHelper mToolBarHelper;
     public Toolbar toolbar;
+    public BaseApplication app;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppManager.getAppManager().addActivity(this);
+        if (app == null) app = (BaseApplication) this.getApplication();
+        app.activityting = this;
+
     }
 
     @Override
@@ -58,6 +62,14 @@ public class BaseActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // 断网的时候做的操作
+    public void callBreak() {
+    }
+
+    //重新链接网络的时候做的操作
+    public void callConnect() {
     }
 
     @Subscribe

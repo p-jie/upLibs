@@ -14,12 +14,17 @@
     <color name="trans_success_stroke_color">#33A5DC86</color>
     <color name="warning_stroke_color">#F8BB86</color>
     <color name="text_color">#575757</color>
-    <color name="material_blue_grey_80">#ff37474f</color>
-    <color name="material_blue_grey_90">#ff263238</color>
-    <color name="material_blue_grey_95">#ff21272b</color>
-    <color name="material_deep_teal_20">#ff80cbc4</color>
-    <color name="material_deep_teal_50">#ff009688</color>
+    <!--<color name="material_blue_grey_80">#ff37474f</color>-->
+    <!--<color name="material_blue_grey_90">#ff263238</color>-->
+    <!--<color name="material_blue_grey_95">#ff21272b</color>-->
+    <!--<color name="material_deep_teal_20">#ff80cbc4</color>-->
+    <!--<color name="material_deep_teal_50">#ff009688</color>-->
 
+    <color name="theme_body">#cc22292c</color>
+    <color name="black">#000000</color>
+    <color name="status_bar">#303135</color>
+    <color name="top_bar">#9f556061</color>
+    <color name="transparent">#00000000</color>
 
     <color name="login_toolbar">#03A9F4</color>
     <color name="colorPrimary">#3F51B5</color>

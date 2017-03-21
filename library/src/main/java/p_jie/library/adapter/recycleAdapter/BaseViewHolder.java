@@ -25,7 +25,6 @@ import android.widget.TextView;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
-
 public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     /**
@@ -33,7 +32,14 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      */
     private final SparseArray<View> views;
 
+    public HashSet<Integer> getNestViews() {
+        return nestViews;
+    }
+
+    private final HashSet<Integer> nestViews;
+
     private final LinkedHashSet<Integer> childClickViewIds;
+
     private final LinkedHashSet<Integer> itemChildLongClickViewIds;
 
 
@@ -50,6 +56,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         this.views = new SparseArray<View>();
         this.childClickViewIds = new LinkedHashSet<>();
         this.itemChildLongClickViewIds = new LinkedHashSet<>();
+        this.nestViews = new HashSet<>();
         convertView = view;
 
     }
@@ -59,7 +66,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     }
 
     public HashSet<Integer> getChildClickViewIds() {
-        return childClickViewIds;
+        return  childClickViewIds;
     }
 
     public View getConvertView() {
@@ -93,7 +100,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      * @param imageResId The image resource id.
      * @return The BaseViewHolder for chaining.
      */
-    public BaseViewHolder setImageResource(int viewId, @DrawableRes int imageResId) {
+    public BaseViewHolder setImageResource(int viewId,@DrawableRes int imageResId) {
         ImageView view = getView(viewId);
         view.setImageResource(imageResId);
         return this;
@@ -296,7 +303,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * Sets the on click listener of the view.
-     *
      * @param viewId   The view id.
      * @param listener The on click listener;
      * @return The BaseViewHolder for chaining.
@@ -310,7 +316,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * add childView id
-     *
      * @param viewId add the child view id   can support childview click
      * @return
      */
@@ -318,14 +323,24 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         childClickViewIds.add(viewId);
         return this;
     }
+    /**
+     * set nestview id
+     * @param viewId add the child view id   can support childview click
+     * @return
+     */
+    public BaseViewHolder setNestView(int viewId) {
+        addOnClickListener(viewId);
+        addOnLongClickListener(viewId);
+        nestViews.add(viewId);
+        return this;
+    }
 
     /**
      * add long click view id
-     *
      * @param viewId
      * @return
      */
-    public BaseViewHolder addOnLongClickListener(int viewId) {
+    public BaseViewHolder addOnLongClickListener(int viewId){
         itemChildLongClickViewIds.add(viewId);
         return this;
     }
