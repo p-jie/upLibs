@@ -1,6 +1,7 @@
 package p_jie.library.http;
 
-import com.yolanda.nohttp.rest.Response;
+
+import com.yanzhenjie.nohttp.rest.Response;
 
 /**
  * Created by jj on 2017/4/1.

@@ -2,10 +2,10 @@ package p_jie.library.http;
 
 import android.content.Context;
 
-import com.yolanda.nohttp.Headers;
-import com.yolanda.nohttp.RequestMethod;
-import com.yolanda.nohttp.rest.RestRequest;
-import com.yolanda.nohttp.rest.StringRequest;
+import com.yanzhenjie.nohttp.Headers;
+import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.RestRequest;
+import com.yanzhenjie.nohttp.rest.StringRequest;
 
 import p_jie.library.http.utils.JsonUtils;
 
@@ -34,13 +34,10 @@ public class ArrayRequest<T> extends RestRequest<T> {
 //    }
 
     @Override
-    public T parseResponse(Headers responseHeaders, byte[] responseBody) throws Throwable {
+    public T parseResponse(Headers responseHeaders, byte[] responseBody){
         String result = StringRequest.parseResponseString(responseHeaders, responseBody);
         return JsonUtils.object(result, classOfT);
     }
 
-    @Override
-    public String getAccept() {
-        return "application/json";
-    }
+
 }

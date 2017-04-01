@@ -24,8 +24,8 @@ public class IRequest {
     /**
      * 下载请求
      */
-    public static DownloadRequest download(Context context, String url) {
-        return new DownloadRequest(context, url);
+    public static DownloadRequested download(Context context, String url) {
+        return new DownloadRequested(context, url);
     }
 
     /**

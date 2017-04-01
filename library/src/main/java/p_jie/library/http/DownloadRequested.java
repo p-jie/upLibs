@@ -2,14 +2,15 @@ package p_jie.library.http;
 
 import android.content.Context;
 
-import com.yolanda.nohttp.download.DownloadListener;
+import com.yanzhenjie.nohttp.download.DownloadListener;
+
 
 /**
  * Created by jj on 2017/3/24.
  */
 
-public class DownloadRequest extends BaseRequest<DownloadRequest> {
-    public DownloadRequest(Context context, String url) {
+public class DownloadRequested extends BaseRequest<DownloadRequested> {
+    public DownloadRequested(Context context, String url) {
         this.url = url;
         this.context = context;
     }

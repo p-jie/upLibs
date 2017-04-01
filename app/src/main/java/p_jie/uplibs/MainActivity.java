@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.yolanda.nohttp.rest.Response;
+import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.ArrayList;
 

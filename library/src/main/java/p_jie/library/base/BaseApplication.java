@@ -2,8 +2,9 @@ package p_jie.library.base;
 
 import android.app.Application;
 
-import com.yolanda.nohttp.Logger;
-import com.yolanda.nohttp.NoHttp;
+import com.yanzhenjie.nohttp.Logger;
+import com.yanzhenjie.nohttp.NoHttp;
+
 
 /**
  * Created by jj on 2017/3/13.

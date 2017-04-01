@@ -4,17 +4,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.text.TextUtils;
 
-import com.yolanda.nohttp.FileBinary;
-import com.yolanda.nohttp.Headers;
-import com.yolanda.nohttp.NoHttp;
-import com.yolanda.nohttp.RequestMethod;
-import com.yolanda.nohttp.download.DownloadListener;
-import com.yolanda.nohttp.download.DownloadQueue;
-import com.yolanda.nohttp.download.DownloadRequest;
-import com.yolanda.nohttp.rest.OnResponseListener;
-import com.yolanda.nohttp.rest.Request;
-import com.yolanda.nohttp.rest.RequestQueue;
-import com.yolanda.nohttp.rest.Response;
+import com.yanzhenjie.nohttp.*;
+import com.yanzhenjie.nohttp.OnUploadListener;
+import com.yanzhenjie.nohttp.download.*;
+import com.yanzhenjie.nohttp.rest.CacheMode;
+import com.yanzhenjie.nohttp.rest.OnResponseListener;
+import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.rest.RequestQueue;
+import com.yanzhenjie.nohttp.rest.Response;
 
 import java.util.List;
 
@@ -117,6 +114,7 @@ public class RequestManager {
         request.setRetryCount(retry);
         request.setTag(context);
         request.setCancelSign(context);
+        request.setCacheMode(CacheMode.NONE_CACHE_REQUEST_NETWORK);
         /**
          * 如果有头部请求则调用getHeader
          * 把自己需要定义的参数都传过去即可
@@ -142,10 +140,10 @@ public class RequestManager {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+            public void onFailed(int what, Response<T> response) {
                 if (l != null) {
                     try {
-                        l.onFailed(what, url, tag, exception, responseCode, networkMillis);
+                        l.onFailed(what, response);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -180,6 +178,7 @@ public class RequestManager {
         if (RequestMethod.POST == method) {
             request.setDefineRequestBodyForJson(params);
         }
+        request.setCacheMode(CacheMode.NONE_CACHE_REQUEST_NETWORK);
         /**
          * 如果是https就打开
          */
@@ -226,10 +225,10 @@ public class RequestManager {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+            public void onFailed(int what, Response<String> response) {
                 if (l != null) {
                     try {
-                        l.onFailed(what, url, tag, exception, responseCode, networkMillis);
+                        l.onFailed(what, response);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -264,6 +263,7 @@ public class RequestManager {
         if (RequestMethod.POST == method) {
             request.setDefineRequestBodyForJson(params);
         }
+        request.setCacheMode(CacheMode.NONE_CACHE_REQUEST_NETWORK);
         /**
          * 如果是https就打开
          */
@@ -310,10 +310,10 @@ public class RequestManager {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+            public void onFailed(int what, Response<String> response) {
                 if (l != null) {
                     try {
-                        l.onFailed(what, url, tag, exception, responseCode, networkMillis);
+                        l.onFailed(what, response);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -341,10 +341,9 @@ public class RequestManager {
      * @param l
      */
     public static void loadDownload(Context context, String url, int what, String fileFolder, String filename, boolean isRange, boolean isDeleteOld, final DownloadListener l) {
+
         final DownloadRequest request = NoHttp.createDownloadRequest(url, fileFolder, filename, isRange, isDeleteOld);
         request.setTag(context);
-
-
         getInstance1().add(what, request, new DownloadListener() {
 
             @Override
@@ -364,10 +363,9 @@ public class RequestManager {
             }
 
             @Override
-            public void onProgress(int what, int progress, long fileCount) {
-
+            public void onProgress(int what, int progress, long fileCount, long speed) {
                 if (l != null) {
-                    l.onProgress(what, progress, fileCount);
+                    l.onProgress(what, progress, fileCount, speed);
                 }
             }
 
@@ -401,6 +399,7 @@ public class RequestManager {
     public static void loadUploadString(Context context, String params, String url, List<UploadFile> files, final boolean isLoading, String loadingTitle, final String root, final RequestListener l) {
         final Request<String> request = NoHttp.createStringRequest(url, RequestMethod.POST);
 
+
         if (!TextUtils.isEmpty(params)) {
             request.setDefineRequestBodyForJson(params);
         }
@@ -424,7 +423,7 @@ public class RequestManager {
              */
             FileBinary fileBinary = new FileBinary(file.getFile());
             request.add(file.getKey(), file.getFile());
-            fileBinary.setUploadListener(file.getWhat(), new com.yolanda.nohttp.OnUploadListener() {
+            fileBinary.setUploadListener(file.getWhat(), new OnUploadListener() {
                 @Override
                 public void onStart(int what) {
                     if (l != null) {
@@ -497,9 +496,9 @@ public class RequestManager {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+            public void onFailed(int what, Response<String> response) {
                 if (l != null) {
-                    l.onFailed(what, url, tag, exception, responseCode, networkMillis);
+                    l.onFailed(what, response);
                 }
             }
 
@@ -549,7 +548,7 @@ public class RequestManager {
              */
             FileBinary fileBinary = new FileBinary(file.getFile());
             request.add(file.getKey(), file.getFile());
-            fileBinary.setUploadListener(file.getWhat(), new com.yolanda.nohttp.OnUploadListener() {
+            fileBinary.setUploadListener(file.getWhat(), new OnUploadListener() {
                 @Override
                 public void onStart(int what) {
                     if (l != null) {
@@ -622,9 +621,9 @@ public class RequestManager {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+            public void onFailed(int what, Response<String> response) {
                 if (l != null) {
-                    l.onFailed(what, url, tag, exception, responseCode, networkMillis);
+                    l.onFailed(what, response);
                 }
             }
 
@@ -676,7 +675,7 @@ public class RequestManager {
 
             FileBinary fileBinary = new FileBinary(file.getFile());
             request.add(file.getKey(), file.getFile());
-            fileBinary.setUploadListener(file.getWhat(), new com.yolanda.nohttp.OnUploadListener() {
+            fileBinary.setUploadListener(file.getWhat(), new OnUploadListener() {
                 @Override
                 public void onStart(int what) {
                     if (l != null) {
@@ -751,9 +750,9 @@ public class RequestManager {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+            public void onFailed(int what, Response<T> response) {
                 if (l != null) {
-                    l.onFailed(what, url, tag, exception, responseCode, networkMillis);
+                    l.onFailed(what, response);
                 }
             }
 

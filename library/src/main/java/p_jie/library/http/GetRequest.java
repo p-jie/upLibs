@@ -2,7 +2,8 @@ package p_jie.library.http;
 
 import android.content.Context;
 
-import com.yolanda.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.RequestMethod;
+
 
 /**
  * Created by jj on 2017/3/24.

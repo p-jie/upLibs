@@ -1,7 +1,6 @@
 package p_jie.library.http;
 
-import com.yolanda.nohttp.BasicBinary;
-import com.yolanda.nohttp.FileBinary;
+
 
 /**
  * Created by jj on 2017/3/24.
